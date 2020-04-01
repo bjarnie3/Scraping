@@ -1,0 +1,1 @@
+"use strict";var request=require("request-promise");function getHtmlFromUrl(r){var t;return regeneratorRuntime.async(function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,regeneratorRuntime.awrap(request.get(r));case 2:return t=e.sent,e.abrupt("return",t);case 4:case"end":return e.stop()}})}

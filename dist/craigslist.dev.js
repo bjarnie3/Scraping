@@ -9,15 +9,6 @@ var mongoose = require("mongoose");
 var Listing = require("./model/Listing"); //craigslistuser:SuperStrongPassword1
 
 
-var scrapingResults = [{
-  title: "Entry Level Software Engineer - C or C++",
-  datePosted: new Date("2019-07-26 12:00:00"),
-  neighborhood: "(palo alto)",
-  url: "https://sfbay.craigslist.org/pen/sof/d/palo-alto-entry-level-software-engineer/6943135190.html",
-  jobDescription: "Major Technology company is seeking an Entry Level software Engineer. The ideal candidate will have extensive school project experience with C or C++. Under general supervision...",
-  compensation: "Up to US$0.00 per year"
-}];
-
 function connectToMongoDb() {
   return regeneratorRuntime.async(function connectToMongoDb$(_context) {
     while (1) {
