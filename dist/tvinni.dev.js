@@ -21,20 +21,19 @@ function scrapeListings(page) {
         case 5:
           html = _context.sent;
           $ = cheerio.load(html);
-          listings = $(".job-listing").map(function (index, element) {
+          listings = $(".job-listing > ul > li").map(function (index, element) {
             var titleStarf = $(element).find("h2");
             var Starf = $(titleStarf).text();
             var Vinnustadur = $(element).find("p");
-            var Vinna = $(Vinnustadur).text(); //const url = $(titleElement).attr(".ul > li > href");
-
+            var Vinna = $(Vinnustadur).text();
+            var url = $(element).find('a').attr('href');
             var timeElement = $(element).find("time");
-            var datePosted = new Date($(timeElement).find("date").text()); //const dagsetning = new Date($("time.date").text());
-            // næ í gögnin gegnum console á crome með þessu $("time.date").text();
-
+            var datePosted = new Date($(timeElement).find(".year").text());
             return {
               Starf: Starf,
               Vinna: Vinna,
-              datePosted: datePosted
+              datePosted: datePosted,
+              url: url
             };
           }).get();
           console.log(listings);
