@@ -22,11 +22,41 @@ async function scrapeListings(page) {
     console.log(listings);
 }
 
+async function scrapeJobDescriptions(listings, page) {
+  await page.goto(
+    "https://www.tvinna.is"
+);
+    for (var i = 0; i < listings.length; i++) {
+      await page.goto(listings[i].url);
+      const html = await page.content();
+      const $ = cheerio.load(html);
+      const jobDescription = $(".job-listing > p");
+      //const compensation = $("p").text();
+      listings[i].jobDescription = jobDescription;
+      //listings[i].compensation = compensation;
+      console.log(listings[i].jobDescription);
+      //console.log(listings[i].compensation);
+      const listingModel = new Listing(listings[i]);
+      await listingModel.save();
+      await sleep(1000); //1 second sleep
+    }
+  }
+  
+  async function sleep(miliseconds) {
+    return new Promise(resolve => setTimeout(resolve, miliseconds));
+  }
 
+  
 async function main() {
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     const listings = await scrapeListings(page);
+    const listingsWithJobDescriptions = await scrapeJobDescriptions(
+      listings,
+      page,
+    );
+    console.log(listingsWithJobDescriptions);
     console.log(listings);
-}
+  }
+
 main();

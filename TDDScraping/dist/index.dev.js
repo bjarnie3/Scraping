@@ -51,4 +51,4 @@ function main(url) {
   });
 }
 
-main("https://sfbay.craigslist.org/d/musicians/search/muc");
+main("https://sfbay.craigslist.org/d/musicians/search/muc"); // keyra forritið yarn run test
