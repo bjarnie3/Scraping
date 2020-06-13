@@ -23,19 +23,13 @@ async function scrapeListings(page) {
 }
 
 async function scrapeJobDescriptions(listings, page) {
-  await page.goto(
-    "https://www.tvinna.is"
-);
     for (var i = 0; i < listings.length; i++) {
       await page.goto(listings[i].url);
       const html = await page.content();
       const $ = cheerio.load(html);
-      const jobDescription = $(".job-listing > p");
-      //const compensation = $("p").text();
+      const jobDescription = $(".job-detail > p").text();
       listings[i].jobDescription = jobDescription;
-      //listings[i].compensation = compensation;
       console.log(listings[i].jobDescription);
-      //console.log(listings[i].compensation);
       const listingModel = new Listing(listings[i]);
       await listingModel.save();
       await sleep(1000); //1 second sleep
